@@ -18,30 +18,12 @@ end)
 
 --Noclip
 MainSection:NewButton("Noclip (N)", "N to walk through walls, B to clip again", function()
-local Noclip = N
-local Clip = B
-
-function noclip()
-	Clip = false
-	local function Nocl()
-		if Clip == false and game.Players.LocalPlayer.Character ~= nil then
-			for _,v in pairs(game.Players.LocalPlayer.Character:GetDescendants()) do
-				if v:IsA('BasePart') and v.CanCollide and v.Name ~= floatName then
-					v.CanCollide = false
-				end
-			end
+	game:getService("RunService"):BindToRenderStep("",0,function()
+		if not game.Players.LocalPlayer.Character:findFirstChildOfClass("Humanoid") then return end
+		if game:getService("UserInputService"):IsKeyDown(Enum.KeyCode.N) then
+		game.Players.LocalPlayer.Character:findFirstChildOfClass("Humanoid"):ChangeState(11)
 		end
-		wait(0.21)
-	end
-	Noclip = game:GetService('RunService').Stepped:Connect(Nocl)
-end
-
-function clip()
-	if Noclip then Noclip:Disconnect() end
-	Clip = true
-end
-
-noclip() 
+		end)
 end)
 
 MainSection:NewButton("Aimbot (E)", "Loads up Aimbot", function()
@@ -352,6 +334,19 @@ end)
 PlayerSection:NewButton("Reset Speed + JumpPower", "Resets the Speed and JumpPower from above", function()
     game.Players.LocalPlayer.Character.Humanoid.JumpPower = 50
 	game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = 16
+end)
+
+
+local InfiniteJumpEnabled;
+PlayerSection:NewToggle("Infinite Jump", "Let you Jump infinite", function(State)
+    InfiniteJumpEnabled = State
+end)
+
+local Player = game:GetService("Players").LocalPlayer
+game:GetService("UserInputService").JumpRequest:Connect(function()
+     if InfiniteJumpEnabled then
+         Player.Character:WaitForChild("Humanoid"):ChangeState("Jumping")
+     end
 end)
 
 
