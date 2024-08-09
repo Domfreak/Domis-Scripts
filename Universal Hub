@@ -103,8 +103,9 @@ MainSection:NewToggle("Noclip (N)", "N to walk through walls, B to clip again", 
 		if not game.Players.LocalPlayer.Character:findFirstChildOfClass("Humanoid") then return end
 		if game:getService("UserInputService"):IsKeyDown(Enum.KeyCode.N) then
 		game.Players.LocalPlayer.Character:findFirstChildOfClass("Humanoid"):ChangeState(11)
+        end
 		end
-		end)
+	end)
 end)
 
 MainSection:NewButton("Aimbot (E)", "Loads up Aimbot", function()
