@@ -94,8 +94,11 @@ local function FLY()
     end
 end)
 
+local noclipon;
 --Noclip
-MainSection:NewButton("Noclip (N)", "N to walk through walls, B to clip again", function()
+MainSection:NewToggle("Noclip (N)", "N to walk through walls, B to clip again", function(state)
+    noclipon = state
+    if state then
 	game:getService("RunService"):BindToRenderStep("",0,function()
 		if not game.Players.LocalPlayer.Character:findFirstChildOfClass("Humanoid") then return end
 		if game:getService("UserInputService"):IsKeyDown(Enum.KeyCode.N) then
